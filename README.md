@@ -2,7 +2,7 @@
 
 RoboCard is a compact robot car powered by the ESP32CAM module, featuring a chassis ingeniously crafted from expired credit cards. This project combines sustainability with robotics, offering an innovative approach to DIY electronics.
 
-![RoboCard Image](https://jojoyeap.github.io/RoboCard/images/Car_Main.jpg)
+<img src="https://jojoyeap.github.io/RoboCard/images/Car_Main.jpg" alt="RoboCard" width="400">
 
 ## Introduction
 
