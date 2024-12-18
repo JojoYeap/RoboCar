@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Arduino 3D playground and exhibition, robotics learning hub 3D modelling and more"
+    />
+    <meta property="og:title" content="Arduino 3D Playground" />
+    <meta
+      property="og:description"
+      content="Arduino 3D playground and exhibition, robotics learning hub 3D modelling and more"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://robotics-made-easy.web.app/" />
+    <meta property="og:url" content="https://robotics-made-easy.web.app/" />
+    <title>RoboCard: ESP32CAM on Wheels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/prism.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  </head>
+
+  <body>
+    <!-- Start of landing section -->
+      <!-- Start of Navigation Bar -->
+      <section class="layer">
+        <nav class="nav nav-fixed collapsible">
+          <a href="/"><img src="images/arduinologo.webp" alt="logo" /></a>
+          <svg class="icon icon--black nav__toggler">
+            <use href="images/sprite.svg#menu"></use>
+          </svg>
+          <ul class="list nav__list collapsible__content">
+            <li class="nav__item"><a href="project.html">Robotic Project</a></li>
+            <li class="nav__item"><a href="modelling.html">3D Modelling</a></li>
+            <li class="nav__item"><a href="gamedev.html">3D Game Dev</a></li>
+            <li class="nav__item"><a href="products.html">Products</a></li> <!-- For future development -->
+            <li class="nav__item">
+              <a href="https://d-arduino-playground-b31a9.web.app" target = "_blank"
+                ><button class="btn btn--primary btn--small">3D Playground</button></a>
+            </li>
+          </ul>
+        </nav>
+      </section>
+
+    <!-- Title of the project -->
+    <section id="arduinosection" class="block container clearmargin">
+      <header class="block__header">
+        <h2>RoboCard: ESP32CAM on Wheels</h2>
+        <p class="block__header_description">
+          RoboCard is powered by ESP32CAM. Its frame is made out of expired credit card, integrating sustainability with robotics.
+        </p>
+        <div class="image-container">
+          <img class="responsive-image-vertical onclick="expandImage(this)" src="images/Car_Main.jpg" alt="ESP 32">
+        </div>
+        <div id="expanded-image" onclick="closeExpandedImage()"></div>
+      </header>
+    </section>
+
+    <!-- Introduction -->
+    <section id="introduction" class="block container clearmargin">
+      <article class="container">
+          <h2 class="feature__heading">Introduction</h2>
+          <p>
+            Welcome to the RoboCar Tutorial!
+            Are you interested in exploring the exciting world of robotics? Look no further! In this comprehensive tutorial, we will guide you through the process of building a robot car using an ESP32CAM and a creative frame constructed from expired credit cards. This project combines the power of the ESP32CAM microcontroller with your very own custom-built robot car frame, resulting in a unique and interactive learning experience.
+            Our tutorial is designed with beginners in mind, providing step-by-step instructions and explanations to help you grasp the fundamentals of robotics. Whether you are a hobbyist, student, or simply curious about robotics, this tutorial will equip you with the knowledge and skills to embark on your robotic journey.
+            Throughout this tutorial, you will learn how to assemble the robot car, program its behavior, and control it using a custom app that we have developed. By the end of the tutorial, you will have a fully functional robot car that can be remotely controlled and capture images with the integrated ESP32CAM camera.
+            Not only will you gain hands-on experience in building and programming a robot car, but you will also have the opportunity to unleash your creativity by repurposing everyday objects, such as expired credit cards, to construct the car's frame. This project combines innovation, sustainability, and learning in an exciting package.
+            So, whether you're a robotics enthusiast or just getting started, join us on this journey as we delve into the fascinating world of robotics. Let's build, learn, and have fun together!
+          </p>
+      </article>
+    </section>
+
+    <!-- Material List -->
+    <section id="material-list" class="block container clearmargin">
+      <article class="container">
+          <h2 class="feature__heading">What You Will Need</h2>
+          <p>
+            To build this, you will need a few items. Below I have listed them out along with links to where you can find them on Cytron.</br></br>
+          </p>
+          <ul class="list list--material">
+            <li class="list__item">ESP32CAM: <a href="https://sg.cytron.io/p-esp32-cam-wireless-iot-vision-development-board?ref=_WqSWKLntwD98">https://sg.cytron.io/p-esp32-cam-wireless-iot-vision-development-board</a></li>
+            <li class="list__item">Mini Breadboard: <a href="https://sg.cytron.io/p-breadboard-mini-170-holes-35mmx42mm?ref=_WqSWKLntwD98">https://sg.cytron.io/p-breadboard-mini-170-holes-35mmx42mm</a></li>
+            <li class="list__item">Jumper Wires: <a href="https://sg.cytron.io/p-male-to-male-jumper-wire?ref=_WqSWKLntwD98">https://sg.cytron.io/p-male-to-male-jumper-wire</a></li>
+            <li class="list__item">TB6612FNG Motor Driver: <a href="https://sg.cytron.io/p-tb6612fng-dual-channel-1p2a-motor-driver-presoldered-header?ref=_WqSWKLntwD98">https://sg.cytron.io/p-tb6612fng-dual-channel-1p2a-motor-driver-presoldered-header</a></li>
+            <li class="list__item">Motors: <a href="https://sg.cytron.io/p-6v-440rpm-dc-micro-metal-gearmotor?ref=_WqSWKLntwD98">https://sg.cytron.io/p-6v-440rpm-dc-micro-metal-gearmotor</a></li>
+            <li class="list__item">Rear Wheels: <a href="https://sg.cytron.io/p-mini-wheel-34x7mm-for-n20-gear-motor?ref=_WqSWKLntwD98">https://sg.cytron.io/p-mini-wheel-34x7mm-for-n20-gear-motor</a></li>
+            <li class="list__item">Front Wheel: <a href="https://sg.cytron.io/p-w420-steel-ball-universal-wheel-castor?ref=_WqSWKLntwD98">https://sg.cytron.io/p-w420-steel-ball-universal-wheel-castor</a></li>
+            <li class="list__item">USB to UART Converter: <a href="https://sg.cytron.io/p-uc00a-ftdi-usb-to-uart-converter?ref=_WqSWKLntwD98">https://sg.cytron.io/p-uc00a-ftdi-usb-to-uart-converter</a></li>
+            <li class="list__item">Small PowerBank (Any Powerbank with microUSB cable): <a href="https://shopee.sg/%E3%80%90SG-READY-STOCK%E3%80%9120000mAh-4-Cables-Capacity-Mini-PowerBank-Dual-USB-Portable-Fast-Charging-Digital-Display-Power-Bank%E5%85%85%E7%94%B5%E5%AE%9D-i.822004989.21041117980?sp_atk=adfcdf1f-4642-49a4-98fa-a7d7e7eed174&xptdk=adfcdf1f-4642-49a4-98fa-a7d7e7eed174">https://shopee.sg/120000mAh-4-Cables-Capacity-Mini-PowerBank</a></li>
+            <li class="list__item">Two <strong>Expired </strong>Credit Card (Look for it around your house!)</li>
+            <li class="list__item">Used Sponge / any Foam Material</li>
+            <li class="list__item">Your Tinkering Hat!</li>
+          </ul>
+      </article>
+    </section>
+
+    <!-- Hardware -->
+    <section id="parts" class="block container clearmargin">
+      <article class="container">
+          <h2 class="feature__heading">Part 1: Hardware</h2>
+          <p>
+            Let's start by building the car!
+          </p>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 1: Connecting the ESP32CAM and Motor Driver to Breadboard</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                We will have to attach the ESP32CAM and Motor Driver onto the mini breadboard as shown on the picture.</br></br></br></br></br></br>
+                <strong>Note:</strong> You can click on the image to expand it!
+              <div class="image-container">
+                <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step1.jpg" alt="ESP 32">
+              </div>
+              <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 2: Connections between ESP32CAM and Motor Driver</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <div>
+              <p>
+                Connect the ESP32CAM and Motor Driver with Jumper Wires as follows:</br></br>
+                <strong>ESP32CAM</strong> > Motor Driver
+                <ul>
+                  <li><strong>IO15</strong> > AIN1</li>
+                  <li><strong>IO3</strong> > AIN2</li>
+                  <li><strong>IO13 </strong> > PWMA</li>
+                  <li><strong>IO14 </strong> > BIN1</li>
+                  <li><strong>IO2 </strong> > BIN2</li>
+                  <li><strong>IO12 </strong> > PWMB</li>
+                </ul>
+                <p><strong>Note: </strong>Use alternating colours for connections to prevent getting confused!</p>
+              </div>
+              <div class="image-container">
+                <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step2.jpg" alt="ESP 32">
+              </div>
+              <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 3: Connecting ESP32CAM and Motor Driver to Power Rails</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <div>
+              <p>
+                Connect the ESP32CAM and Motor Driver to the power rails as follows:</br></br>
+                <ul>
+                  <li>(ESP32CAM) <strong>5V</strong> > 5V </li>
+                  <li>(ESP32CAM) <strong>GND</strong> > GND</li>
+                  <li>(Motor Driver) <strong>VM </strong> > 5V</li>
+                  <li>(Motor Driver) <strong>VCC </strong> > 5V</li>
+                  <li>(Motor Driver) <strong>STBY </strong> > 5V</li>
+                  <li>(Motor Driver) <strong>GND </strong>(Both) > GND</li>
+                </ul>
+                <p><strong>Note: </strong>Use <strong>red </strong> for 5V and <strong>black/white </strong> for GND</p>
+              </div>
+              <div class="image-container">
+                <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step3.jpg" alt="ESP 32">
+              </div>
+              <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 4: Assembling the wheels</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                You will have to fit in the wheels to the motor and solder wires to the motor</br></br></br></br></br></br>
+                <strong>Note:</strong> Be careful of the <strong>HOT</strong> soldering iron! Seek help if you are unfamiliar with it!
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step4.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 5: Preparing the credit cards!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Apply tape to the card as shown in the picture!</br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step5.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 6: Sticking the Motors!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Put the motors and foams onto one of the cards as shown. This will be your <strong> bottom </strong> plate!</br></br>
+                <div class="slider-container-container">
+                  <div class="slider-container">
+                    <div class="slider">
+                      <img src="images/Car_Step6_1.jpg" alt="Image 1" onclick="expandImage(this)">
+                      <img src="images/Car_Step6_2.jpg" alt="Image 2" onclick="expandImage(this)">
+                    </div>
+                  </div>
+                </div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 7: Sandwich the Motors and Add the Front Wheel!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Place the other card on top and stick them together. Then, stick the front wheel!</br></br>
+                <div class="slider-container-container">
+                  <div class="slider-container">
+                    <div class="slider">
+                      <img src="images/Car_Step7_1.jpg" alt="Image 1" onclick="expandImage(this)">
+                      <img src="images/Car_Step7_2.jpg" alt="Image 2" onclick="expandImage(this)">
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 8: Adding the USB to UART Converter!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Add the USB to UART Converter between the two cards as shown!</br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step8.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 9: Mounting the Breadboard and PowerBank!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Apply tape to the top of the frame and stick the breadboard and powerbank onto the frame!</br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step9.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 10: Connect the Motor to the Breadboard!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Connect the left motor's wire to AO1 and AO2 and the right motor's wire to BO1 and BO2!</br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step10.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 11: Connect the USB to UART Converter to the Breadboard!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Connect the USB to UART Converter's VCC to 5V and GND to GND as mentioned at Step3!</br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step11.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 12: Connect the Powerbank to the Converter!</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                Connect the PowerBank to the USB to UART Converter using a microUSB cable! Then, we are done building the car!</br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/Car_Step12.jpg" alt="ESP 32">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Software -->
+    <section id="parts" class="block container clearmargin">
+      <article class="container">
+          <h2 class="feature__heading">Part 2: Software</h2>
+          <p>
+            Next, We will build the software for the car!
+          </p>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 1: Downloading Arduino IDE</h3>
+            <div class="grid grid--1x55n45 feature__content">
+              <p>
+                To start, you need to download the software from Arduino's website: <a href="https://www.arduino.cc/en/software">https://www.arduino.cc/en/software</a> </br></br>
+                <div class="image-container">
+                  <img class="responsive-image" onclick="expandImage(this)" src="images/CarSoftware_Step1.png" alt="Arduino IDE">
+                </div>
+                <div id="expanded-image" onclick="closeExpandedImage()"></div>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 2: Include Libraries and Configure Camera</h3>
+            <div class="feature__content">
+              <p>
+                We include the necessary libraries for this project and configure the camera
+              </p>
+            <p>The following libraries are included in the code:</p>
+            <pre class="line-numbers">
+              <code class="language-cpp">
+              #include "esp_camera.h"   // This library provides functions to initialize and control the ESP32 camera module.
+              #include &lt;WiFi.h&gt; // This library enables Wi-Fi connectivity.
+              #include &lt;WebSocketsServer.h&gt; // This library allows creating a WebSocket server.
+              #include &lt;AsyncTCP.h&gt; // This library provides asynchronous TCP/IP communication.
+              #include &lt;ESPAsyncWebServer.h&gt; // This library enables the creation of an asynchronous web server on ESP32.
+              </code>
+            </pre>
+          
+            <h3>Pin Definitions</h3>
+            <p>The code defines various GPIO pin numbers for camera and other purposes:</p>
+            <pre class="line-numbers">
+              <code class="language-cpp">
+              #define PWDN_GPIO_NUM     32
+              #define RESET_GPIO_NUM    -1
+              #define XCLK_GPIO_NUM      0
+              #define SIOD_GPIO_NUM     26
+              #define SIOC_GPIO_NUM     27
+          
+              #define Y9_GPIO_NUM       35
+              #define Y8_GPIO_NUM       34
+              #define Y7_GPIO_NUM       39
+              #define Y6_GPIO_NUM       36
+              #define Y5_GPIO_NUM       21
+              #define Y4_GPIO_NUM       19
+              #define Y3_GPIO_NUM       18
+              #define Y2_GPIO_NUM        5
+              #define VSYNC_GPIO_NUM    25
+              #define HREF_GPIO_NUM     23
+              #define PCLK_GPIO_NUM     22
+              </code>
+            </pre>
+          
+            <h3>Camera Configuration</h3>
+            <p>A function named <code>configCamera()</code> is defined to configure the camera module:</p>
+            <pre class="line-numbers">
+              <code class="language-cpp">
+              void configCamera(){
+                camera_config_t config;
+                // Camera pin configuration
+                config.ledc_channel = LEDC_CHANNEL_0;
+                config.ledc_timer = LEDC_TIMER_0;
+                config.pin_d0 = Y2_GPIO_NUM;
+                config.pin_d1 = Y3_GPIO_NUM;
+                config.pin_d2 = Y4_GPIO_NUM;
+                config.pin_d3 = Y5_GPIO_NUM;
+                config.pin_d4 = Y6_GPIO_NUM;
+                config.pin_d5 = Y7_GPIO_NUM;
+                config.pin_d6 = Y8_GPIO_NUM;
+                config.pin_d7 = Y9_GPIO_NUM;
+                config.pin_xclk = XCLK_GPIO_NUM;
+                config.pin_pclk = PCLK_GPIO_NUM;
+                config.pin_vsync = VSYNC_GPIO_NUM;
+                config.pin_href = HREF_GPIO_NUM;
+                config.pin_sscb_sda = SIOD_GPIO_NUM;
+                config.pin_sscb_scl = SIOC_GPIO_NUM;
+                config.pin_pwdn = PWDN_GPIO_NUM;
+                config.pin_reset = RESET_GPIO_NUM;
+                config.xclk_freq_hz = 10000000;
+                config.pixel_format = PIXFORMAT_JPEG;
+          
+                config.frame_size = FRAMESIZE_QVGA;
+                config.jpeg_quality = 15;
+                config.fb_count = 100;
+          
+                // Initialize the camera
+                esp_err_t err = esp_camera_init(&config);
+                if (err != ESP_OK) {
+                  Serial.printf("Camera init failed with error 0x%x", err);
+                  return;
+                }
+              }
+            </code>
+          </pre>
+          
+            <h3>Live Camera Function</h3>
+            <p>A function named <code>liveCam()</code> is defined to capture and send a live camera frame:</p>
+            <pre class="line-numbers">
+              <code class="language-cpp">
+              void liveCam(uint8_t num){
+                // Capture a frame
+                camera_fb_t *fb = esp_camera_fb_get();
+                if (!fb) {
+                  Serial.println("Frame buffer could not be acquired");
+                  return;
+                }
+                
+                // Replace this with your own function
+                webSocket.sendBIN(num, fb->buf, fb->len);
+          
+                // Return the frame buffer back to be reused
+                esp_camera_fb_return(fb);
+              }
+              </code>
+            </pre>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 3: Configuring WebSocket</h3>
+            <div class="feature__content">
+              <p>
+                The code defines a WebSocket server and handles WebSocket events. It uses the WebSocketsServer library to handle WebSocket connections and the AsyncWebServer library to create an asynchronous web server. Let's break down the code further.
+              </p>
+              <pre class="line-numbers">
+                <code class="language-cpp">
+                // Define WebSocket server on port 81
+                WebSocketsServer webSocket = WebSocketsServer(81);
+                
+                // Create AsyncWebServer on port 80
+                AsyncWebServer server(80);
+                
+                // Variable to store the WebSocket connection number
+                uint8_t cam_num;
+                
+                // Boolean flag to indicate if a client is connected
+                bool connected = false;
+                
+                // String variable to store received WebSocket message
+                String message = "";
+                
+                // Function to handle WebSocket text messages
+                void handleWebSocketMessage(uint8_t *data, size_t len) {
+                  data[len] = 0;
+                  message = (char*)data;
+                  Serial.println(message);
+                  moveMotor(); // Call a function to move the motor based on the received message
+                }
+                
+                // Function to handle WebSocket events
+                void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+                  switch(type) {
+                    case WStype_DISCONNECTED:
+                      Serial.printf("[%u] Disconnected!\n", num);
+                      break;
+                    case WStype_CONNECTED:
+                      cam_num = num;
+                      connected = true;
+                      break;
+                    case WStype_TEXT:
+                      handleWebSocketMessage(payload, length);
+                      break;
+                    case WStype_BIN:
+                    case WStype_ERROR:      
+                    case WStype_FRAGMENT_TEXT_START:
+                    case WStype_FRAGMENT_BIN_START:
+                    case WStype_FRAGMENT:
+                    case WStype_FRAGMENT_FIN:
+                      break;
+                  }
+                }
+              </code>
+            </pre>
+              
+              <p>
+                In this code, a WebSocket server is created on port 81 using the WebSocketsServer library. An AsyncWebServer is also created on port 80 using the AsyncWebServer library. The variable <code>cam_num</code> is used to store the WebSocket connection number, and the <code>connected</code> flag indicates whether a client is connected or not.
+              </p>
+              
+              <p>
+                The <code>handleWebSocketMessage</code> function is responsible for handling WebSocket text messages. It takes the received data as input, converts it to a null-terminated string, stores it in the <code>message</code> variable, and prints it to the serial monitor. It also calls a function named <code>moveMotor()</code> to move the motor based on the received message.
+              </p>
+              
+              <p>
+                The <code>webSocketEvent</code> function is the WebSocket event handler. It is called when a WebSocket event occurs. It takes four parameters: <code>num</code> (the WebSocket connection number), <code>type</code> (the type of event), <code>payload</code> (the received data payload), and <code>length</code> (the length of the payload).
+              </p>
+              
+              <p>
+                Inside the <code>webSocketEvent</code> function, a switch statement is used to handle different types of WebSocket events. If the event type is <code>WStype_DISCONNECTED</code>, it prints a message indicating that the client has been disconnected. If the event type is <code>WStype_CONNECTED</code>, it stores the WebSocket connection number in <code>cam_num</code> and sets the <code>connected</code> flag to true. If the event type is <code>WStype_TEXT</code>, it calls the <code>handleWebSocketMessage</code> function to process the received text message. Other event types are ignored in this code.
+              </p>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 4: Coding the web interface</h3>
+              <div class="grid grid--1x55n45 feature__content">
+                <p>
+                  This is the HTML code for the web interface, including the canvas element for displaying the camera feed and joystick control.
+                </p>
+                  <div class="image-container">
+                    <img class="responsive-image-vertical" onclick="expandImage(this)" src="images/CarSoftware_Step4.jpg" alt="Web Interface">
+                  </div>
+                  <div id="expanded-image" onclick="closeExpandedImage()"></div>
+              </div>
+              <pre class="line-numbers">
+                <code class="language-cpp">
+                String index_html = R&quot;(
+                  &lt;!DOCTYPE html&gt;
+                  &lt;html&gt;
+                  &lt;head&gt;
+                  &lt;title&gt; WebSockets Client&lt;/title&gt;
+                  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+                  &lt;script src='http://code.jquery.com/jquery-1.9.1.min.js'&gt;&lt;/script&gt;
+                  &lt;/head&gt;
+                  &lt;body scroll=&quot;no&quot; style=&quot;overflow: hidden;position: fixed;
+                  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+                  color:rgb(128, 128, 128);
+                  font-size: xx-large;&quot;&gt;
+                      &lt;p style=&quot;text-align: center;&quot;&gt;
+                          X: &lt;span id=&quot;x_coordinate&quot;&gt; &lt;/span&gt;
+                          Y: &lt;span id=&quot;y_coordinate&quot;&gt; &lt;/span&gt; &lt;br&gt; &lt;br&gt;
+                          &lt;img id='live' src='' display&gt;
+                      &lt;/p&gt;
+                  &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+                  &lt;/body&gt;
+                  &lt;/html&gt;
+                  &lt;script&gt;
+                  jQuery(function($){
+                      if (!('WebSocket' in window)) {
+                          alert('Your browser does not support web sockets');
+                      } else {
+                          setup();
+                      }
+                  
+                      function setup() {
+                        var host = 'ws://server_ip:81';
+                        var socket = new WebSocket(host);
+                        socket.binaryType = 'arraybuffer';
+                
+                        if (socket) {
+                            socket.onopen = function() {
+                            }
+                
+                            socket.onmessage = function(msg) {
+                                var bytes = new Uint8Array(msg.data);
+                                var binary= '';
+                                var len = bytes.byteLength;
+                                for (var i = 0; i < len; i++) {
+                                    binary += String.fromCharCode(bytes[i])
+                                }
+                
+                                var img = document.getElementById('live');
+                                img.src = 'data:image/jpg;base64,'+window.btoa(binary);
+                            }
+                
+                            socket.onclose = function() {
+                                showServerResponse('The connection has been closed.');
+                            }
+                        }
+                
+                        var x_relative, y_relative;
+                
+                        setInterval(function() {
+                            var x = x_relative; // get x value here
+                            var y = y_relative; // get y value here
+                            send(x, y);
+                        }, 100);
+                
+                        function send(x,y){
+                            var data = {x,y};
+                            data = JSON.stringify(data);
+                            console.log(data);
+                            socket.send(data);
+                        }
+                        
+                        var canvas, ctx;
+                
+                        window.addEventListener('load', () => {
+                
+                            canvas = document.getElementById('canvas');
+                            ctx = canvas.getContext('2d');          
+                            resize(); 
+                
+                            document.addEventListener('mousedown', startDrawing);
+                            document.addEventListener('mouseup', stopDrawing);
+                            document.addEventListener('mousemove', Draw);
+                
+                            document.addEventListener('touchstart', startDrawing);
+                            document.addEventListener('touchend', stopDrawing);
+                            document.addEventListener('touchcancel', stopDrawing);
+                            document.addEventListener('touchmove', Draw);
+                            window.addEventListener('resize', resize);
+                
+                            document.getElementById("x_coordinate").innerText = 0;
+                            document.getElementById("y_coordinate").innerText = 0;
+                        });
+                
+                        var width, height, radius, x_orig, y_orig;
+                        function resize() {
+                            width = window.innerWidth;
+                            radius = window.innerWidth/4;
+                            height = radius * 6;
+                            ctx.canvas.width = width;
+                            ctx.canvas.height = height;
+                            background();
+                            joystick(width / 2, height / 3);
+                        }
+                
+                        function background() {
+                            x_orig = width / 2;
+                            y_orig = height / 3;
+                
+                            ctx.beginPath();
+                            ctx.arc(x_orig, y_orig, radius + 15, 0, Math.PI * 2, true);
+                            ctx.fillStyle = '#ECE5E5';
+                            ctx.fill();
+                        }
+                
+                        function joystick(width, height) {
+                            ctx.beginPath();
+                            ctx.arc(width, height, radius, 0, Math.PI * 2, true);
+                            ctx.fillStyle = '#3D85C6';
+                            ctx.fill();
+                            ctx.strokeStyle = '#9FC5E8';
+                            ctx.lineWidth = 8;
+                            ctx.stroke();
+                        }
+                
+                        let coord = { x: 0, y: 0 };
+                        let paint = false;
+                
+                        function getPosition(event) {
+                            var mouse_x = event.clientX || event.touches[0].clientX;
+                            var mouse_y = event.clientY || event.touches[0].clientY;
+                            coord.x = mouse_x - canvas.offsetLeft;
+                            coord.y = mouse_y - canvas.offsetTop;
+                        }
+                
+                        function is_it_in_the_circle() {
+                            var current_radius = Math.sqrt(Math.pow(coord.x - x_orig, 2) + Math.pow(coord.y - y_orig, 2));
+                            if (radius >= current_radius) return true
+                            else return false
+                        }
+                
+                
+                        function startDrawing(event) {
+                            paint = true;
+                            getPosition(event);
+                            if (is_it_in_the_circle()) {
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                background();
+                                joystick(coord.x, coord.y);
+                                Draw();
+                            }
+                        }
+                
+                
+                        function stopDrawing() {
+                            paint = false;
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                            background();
+                            joystick(width / 2, height / 3);
+                            document.getElementById("x_coordinate").innerText = 0;
+                            document.getElementById("y_coordinate").innerText = 0;
+                            x_relative = 0;
+                            y_relative = 0;            
+                
+                        }
+                
+                        function Draw(event) {
+                
+                            if (paint) {
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                background();
+                                var angle_in_degrees, x, y;
+                                var angle = Math.atan2((coord.y - y_orig), (coord.x - x_orig));
+                
+                                if (Math.sign(angle) == -1) {
+                                    angle_in_degrees = Math.round(-angle * 180 / Math.PI);
+                                }
+                                else {
+                                    angle_in_degrees =Math.round( 360 - angle * 180 / Math.PI);
+                                }
+                
+                                if (is_it_in_the_circle()) {
+                                    joystick(coord.x, coord.y);
+                                    x = coord.x;
+                                    y = coord.y;
+                                }
+                                else {
+                                    x = radius * Math.cos(angle) + x_orig;
+                                    y = radius * Math.sin(angle) + y_orig;
+                                    joystick(x, y);
+                                }
+                
+                            
+                                getPosition(event);
+                
+                                x_relative = Math.round(x - x_orig);
+                                y_relative = Math.round(y - y_orig);
+                
+                                document.getElementById("x_coordinate").innerText =  x_relative;
+                                document.getElementById("y_coordinate").innerText =  y_relative ;
+                            }
+                        } 
+                    }
+                  });
+                  &lt;/script&gt;
+                      </code>
+                  </pre>
+              
+                  <ul>
+                    <li>
+                        The HTML section defines the structure of the page, including a title, a viewport meta tag for responsiveness, and a &lt;canvas&gt; element for drawing.
+                    </li>
+                    <li>
+                        Inside the body, there's a &lt;p&gt; element with two spans to display X and Y coordinates, and an image element with an empty source.
+                    </li>
+                    <li>
+                        The JavaScript section starts with a setup function that checks if the browser supports web sockets. If supported, it establishes a WebSocket connection with a specified host.
+                    </li>
+                    <li>
+                        The <code>socket.onmessage</code> function receives binary data from the server, converts it to base64, and assigns it as the source of the image element.
+                    </li>
+                    <li>
+                        The code sets up event listeners for mouse and touch events to handle drawing on the canvas. It also includes functions for drawing and handling coordinates.
+                    </li>
+                </ul>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 5: Configuring the Motors</h3>
+            <div class="feature__content">
+              <p>
+                This code provides a modular approach to control the speed and direction of two motors based on input values. It allows the motors to be adjusted within the defined minimum and maximum speed ranges and provides a function to stop both motors simultaneously.
+              </p>
+              <pre class="line-numbers">
+                <code class="language-cpp">
+                // variables for motor drivers
+                #define minspd 80
+                #define maxspd 150
+                
+                int leftMotor =0, rightMotor=0;
+                int sped(int dSpeed){
+                  int nspd;
+                  if (abs(dSpeed)>100){
+                    dSpeed > 0 ? dSpeed = 100 : dSpeed = -100;
+                  }
+                  if (dSpeed > 0){
+                    nspd = map(dSpeed, 0, 100, minspd, maxspd);
+                  }else if (dSpeed < 0){
+                    nspd = map(dSpeed, -100, 0, -maxspd, -minspd);
+                  }
+                  else{
+                    nspd = 0;
+                  }
+                  return nspd;
+                }
+                
+                void motor1(int Hspd) {
+                  int spd = sped(Hspd);
+                  if (spd > 5) {
+                    digitalWrite(motor1Pin1, HIGH);
+                    digitalWrite(motor1Pin2, LOW);
+                  }else if (spd < -5) {
+                    digitalWrite(motor1Pin1, LOW);
+                    digitalWrite(motor1Pin2, HIGH);
+                    spd = -spd;
+                  }else{
+                    digitalWrite(motor1Pin1, LOW);
+                    digitalWrite(motor1Pin2, LOW);
+                  }
+                  ledcWrite(pwmChannel_1, spd);
+                }
+                
+                void motor2(int Hspd) {
+                  int spd = sped(Hspd);
+                  if (spd > 5) {
+                    digitalWrite(motor2Pin1, HIGH);
+                    digitalWrite(motor2Pin2, LOW);
+                  }else if (spd < -5) {
+                    digitalWrite(motor2Pin1, LOW);
+                    digitalWrite(motor2Pin2, HIGH);
+                    spd = -spd;
+                  }else {
+                    digitalWrite(motor2Pin1, LOW);
+                    digitalWrite(motor2Pin2, LOW);
+                  }
+                  ledcWrite(pwmChannel_2, spd);
+                }
+                
+                void stopAll() {
+                  motor1(0);
+                  motor2(0);
+                }
+                
+                void moveMotor(){
+                  if(message.length()>2){
+                    x_reading = message.substring(message.indexOf(':')+1,message.indexOf(',')).toInt();
+                    Serial.println(x_reading);
+                    y_reading = message.substring(message.indexOf(',')+5,message.length()).toInt();
+                    Serial.println(y_reading);
+                  }
+                  if (abs(y_reading)>15){
+                    leftMotor = y_reading;
+                    rightMotor = y_reading;
+                  }else{
+                    leftMotor = 0, rightMotor= 0;
+                  }
+                
+                  if (abs(x_reading)>20){
+                    rightMotor = rightMotor - x_reading;
+                    leftMotor = leftMotor + x_reading;
+                  }
+                
+                  motor1(leftMotor);
+                  motor2(rightMotor);
+                }
+              </code>
+            </pre>
+            <p>The code provided is for controlling the speed and direction of two motors. It includes several functions and variables to achieve this functionality:</p>
+            <ul>
+                <li><code>#define minspd 80</code>: This line defines a constant variable <code>minspd</code> with a value of 80.</li>
+                <li><code>#define maxspd 150</code>: This line defines a constant variable <code>maxspd</code> with a value of 150.</li>
+                <li><code>int leftMotor = 0, rightMotor = 0;</code>: These variables store the current speed values for the left and right motors, initially set to 0.</li>
+                <li><code>int sped(int dSpeed)</code>: This function takes an input speed value (<code>dSpeed</code>) and maps it to the appropriate range based on the predefined minimum and maximum speeds. It returns the mapped speed value.</li>
+                <li><code>void motor1(int Hspd)</code>: This function controls the first motor. It takes a speed value (<code>Hspd</code>) as input and sets the appropriate digital outputs and pulse width modulation (PWM) value for the motor control pins.</li>
+                <li><code>void motor2(int Hspd)</code>: This function controls the second motor. It takes a speed value (<code>Hspd</code>) as input and sets the appropriate digital outputs and PWM value for the motor control pins.</li>
+                <li><code>void stopAll()</code>: This function stops both motors by calling <code>motor1(0)</code> and <code>motor2(0)</code> to set their speeds to 0.</li>
+                <li><code>void moveMotor()</code>: This function is responsible for moving the motors based on received input. It extracts the x and y readings from a message, adjusts the motor speeds accordingly, and calls <code>motor1()</code> and <code>motor2()</code> with the updated speeds.</li>
+            </ul>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Step 6: Setup and Loop</h3>
+            <div class="feature__content">
+              <p>
+                This code sets up the initial configuration, including establishing a WiFi connection, configuring the web server and WebSocket server, and initializing the necessary pins and PWM for motor control. The <code>loop()</code> function continues to check for WebSocket events and perform live camera operations.              </p>
+              <pre class="line-numbers">
+                <code class="language-cpp">
+                void setup() {
+                  Serial.begin(115200);    // Initializes the serial communication at a baud rate of 115200
+                  WiFi.begin("Wifi", "WifiPassword");    // Connects to a WiFi network with the given SSID and password
+                  Serial.println("");
+                  while (WiFi.status() != WL_CONNECTED) {    // Waits until the WiFi connection is established
+                      delay(500);
+                      Serial.print(".");
+                  }
+                  Serial.println("");
+                  String IP = WiFi.localIP().toString();    // Retrieves the local IP address of the device
+                  Serial.print("IP address: " + IP);
+              
+                  index_html.replace("server_ip", IP);    // Replaces the placeholder "server_ip" in the HTML template with the actual IP address
+              
+                  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+                      request->send(200, "text/html", index_html);    // Handles the root URL request and sends the HTML template as a response
+                  });
+              
+                  server.begin();    // Starts the web server
+                  webSocket.begin();    // Starts the WebSocket server
+                  webSocket.onEvent(webSocketEvent);    // Registers the WebSocket event handler function
+                  configCamera();    // Configures the camera
+              
+                  // Sets the pins for motors as outputs
+                  pinMode(motor1Pin1, OUTPUT);
+                  pinMode(motor1Pin2, OUTPUT);
+                  pinMode(enable1Pin, OUTPUT);
+                  pinMode(motor2Pin1, OUTPUT);
+                  pinMode(motor2Pin2, OUTPUT);
+                  pinMode(enable2Pin, OUTPUT);
+              
+                  // Configures LED PWM functionalities
+                  ledcSetup(pwmChannel_1, freq, motorResolution);
+                  ledcSetup(pwmChannel_2, freq, motorResolution);
+              
+                  // Attaches the PWM channels to the corresponding GPIO pins
+                  ledcAttachPin(enable1Pin, pwmChannel_1);
+                  ledcAttachPin(enable2Pin, pwmChannel_2);
+                }
+
+                void loop() {
+                  // http_resp();    // Uncommented code related to HTTP response, if available
+                  webSocket.loop();    // Continuously checks for WebSocket events and handles them
+                  liveCam(cam_num);    // Calls the function to perform live camera operations
+                }
+                </code>
+              </pre>
+              <p>The provided code consists of two main functions: <code>setup()</code> and <code>loop()</code>. Here's an explanation of each function:</p>
+              <ul>
+                  <li><code>setup()</code>: This function is executed once when the device starts up. It performs the following tasks:</li>
+                  <ul>
+                      <li>Initializes the serial communication at a baud rate of 115200.</li>
+                      <li>Connects to a WiFi network with the given SSID and password.</li>
+                      <li>Waits until the WiFi connection is established.</li>
+                      <li>Retrieves the local IP address of the device.</li>
+                      <li>Replaces the placeholder "server_ip" in the HTML template with the actual IP address.</li>
+                      <li>Registers a route handler for the root URL ("/") to handle HTTP GET requests and send the HTML template as a response.</li>
+                      <li>Starts the web server.</li>
+                      <li>Starts the WebSocket server.</li>
+                      <li>Registers the WebSocket event handler function.</li>
+                      <li>Configures the camera.</li>
+                      <li>Sets the necessary pins for motor control as outputs.</li>
+                      <li>Configures LED Pulse Width Modulation (PWM) functionalities for motor control.</li>
+                      <li>Attaches the PWM channels to the corresponding GPIO pins.</li>
+                  </ul>
+                  <li><code>loop()</code>: This function is executed repeatedly in an infinite loop. It performs the following tasks:</li>
+                  <ul>
+                      <li>Checks for WebSocket events and handles them.</li>
+                      <li>Performs live camera operations using the provided <code>liveCam()</code> function.</li>
+                  </ul>
+              </ul>
+            </div>
+      </article>
+    </section>
+
+    <!-- Instruction Block -->
+    <section id="instructions" class="block container clearmargin">
+      <article class="container">
+          <h3 class="feature__heading">Finally!</h3>
+            <div class="feature__content">
+              <p>
+                You can download the full code here: <a href="code/RoboCarCode.ino">RoboCar Code</a> and flash it onto your ESP32CAM!
+              </p>
+            </div>
+      </article>
+    </section>
+
+    <!-- Congratulations -->
+    <section id="congratulations" class="block container clearmargin">
+      <article class="container">
+          <h2 class="feature__heading">Congratulations!</h2>
+          <p>
+            You have completed the project! Hope you enjoyed it and learned something new!</br></br></br>
+          </p>
+      </article>
+    </section>
+
+    <!-- Start of footer -->
+    <footer class="block block--light footer">
+      <div class="container grid footer__sections">
+        <section class="collapsible footer__section">
+          <div class="collapsible__header">
+            <h2 class="collapsible__heading footer__heading">Services</h2>
+            <svg class="icon icon--white collapsible__chevron">
+              <use href="images/sprite.svg#chevron"></use>
+            </svg>
+          </div>
+          <div class="collapsible__content">
+            <ul class="list">
+              <li><a href="project.html">Robotics Projects</a></li>
+              <li><a href="modelling.html">3D Modelling</a></li>
+              <li><a href="gamedev.html">3D Game Dev</a></li>
+              <li><a href="products.html">Order Hardware</a></li>
+              <li><a href="https://d-arduino-playground-b31a9.web.app" target = "_blank">3D Playground</a></li>
+
+            </ul>
+          </div>
+        </section>
+        <!-- End of Section ONE -->
+        <section class="collapsible footer__section">
+          <div class="collapsible__header">
+            <h2 class="collapsible__heading footer__heading">ORGANIZATION</h2>
+            <svg class="icon icon--white collapsible__chevron">
+              <use href="images/sprite.svg#chevron"></use>
+            </svg>
+          </div>
+          <div class="collapsible__content">
+            <ul class="list">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+        </section>
+        <!-- End of Section TWO -->
+        <section class="collapsible footer__section">
+          <!-- footer__sections and footer__section are different -->
+          <div class="collapsible__header">
+            <h2 class="collapsible__heading footer__heading">SUPPORT</h2>
+            <svg class="icon icon--white collapsible__chevron">
+              <use href="images/sprite.svg#chevron"></use>
+            </svg>
+          </div>
+          <div class="collapsible__content">
+            <ul class="list">
+              <li><a href="#">Contact</a></li>
+              <li><a href="https://forms.gle/6LAhKS4nDB32Ts259" target="_blank">Feedback</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+        </section>
+        <!-- End of Section Three -->
+
+        <!-- Start of Company Copyright -->
+        <div class="footer__brand">
+          <a href="/"><img src="images/arduinologo.webp" alt="logo" /></a>
+          <p class="footer__copyright">
+            Copyright &copy; 2022 Robotics Made Easy. All Rights Reserved. 
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- End of footer -->
+
+    <script src="js/main.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script>
+      // Initialize Prism
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>
