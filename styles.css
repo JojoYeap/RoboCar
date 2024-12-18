@@ -1,0 +1,1522 @@
+/* Defining color palette Remember to commit to git respository if there's any update*/
+:root {
+  /* use of "root" pseudo class selector which matches the
+  HTML element to define our global variables or custom properties */
+  --color-primary: #2584ff;
+  --color-secondary: #00aeff;
+  --color-accent: #ff3400;
+  --color-headings: #1b0760;
+  --color-body-light: #918ca4;
+  --color-body: #290d8d;
+  --color-body-darker: #5c5577;
+  --color-border: #ccc;
+  --border-radius: 30px;
+}
+
+/* defining a rule using universal selector */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+/* Typography */
+
+html {
+  /* 62.5% of 16pxm = 10px  This is to ease calculation for rem */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 2.4rem;
+  line-height: 1.5;
+  color: var(--color-body);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-headings);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+h1 {
+  /* 1 x font size of the html element */
+  font-size: 7rem;
+}
+/* Experiment shows that we should use the same bottom margin for h1 & h2 */
+h2 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+p {
+  margin-top: 0;
+  word-wrap: break-word;
+}
+
+/* a media query is used to adapt to screens that are larger than 1024 pixels */
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 1.8rem;
+  }
+
+  h1 {
+    font-size: 8rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 2.4rem;
+  }
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+.no-indentation {
+  white-space: pre;
+}
+
+pre, code {
+  white-space: pre-line;
+}
+
+.link-arrow {
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* use the after psuedo element selector to add --> arrow*/
+.link-arrow::after {
+  content: "-->";
+  margin-left: 5px;
+  transition: margin 0.15s;
+}
+
+.link-arrow:hover::after {
+  margin-left: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+  .link-arrow {
+    font-size: 1.5 rem;
+  }
+}
+
+/* Badges */
+
+.badge {
+  border-radius: 20px;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  white-space: nowrap; /* so that it won't go to the 2nd line in limited space */
+}
+
+/* using block element modifier. -- seperates a block or component from modifier */
+/* While BEM convention __ is to seperate block or component from its element */
+.badge--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.badge--secondary {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.badge--small {
+  font-size: 1.6rem;
+  padding: 0.5rem 1.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .badge {
+    font-size: 1.5rem;
+  }
+
+  .badge--small {
+    font-size: 1.2rem;
+  }
+}
+
+/* Lists */
+.list {
+  list-style: none;
+  padding-left: 0;
+  color: var(--color-headings);
+}
+
+.list--inline .list__item {
+  /* display: inline; will not be able to apply margin, so use inline-block */
+  display: inline-block;
+  margin-right: 2rem;
+  list-style-type: circle;
+}
+
+.list--material{
+  list-style-type: circle;
+  padding-left: 3rem; /* without this padding, the ticks will be off the screen */
+}
+
+.list--material .list__item{
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.list--tick {
+  list-style-image: url(../images/tick.svg);
+  padding-left: 3rem; /* without this padding, the ticks will be off the screen */
+}
+
+.list--tick .list__item {
+  /* We are using nesting here to specify it. Minimize nesting to avoide overly specific selectors. */
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .list--tick .list__item {
+    padding-left: 0;
+  }
+}
+
+/* Icons */
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.icon--small {
+  width: 30px;
+  height: 30px;
+}
+
+.icon--primary {
+  fill: var(--color-primary);
+}
+
+.icon--white {
+  fill: #fff;
+}
+
+.icon--black {
+  fill: #000;
+}
+
+/* single hyphen is used here as this is not a variation or a modifier for the icon class.
+This is entirely a new class. In BEM, use a single hyphen to separate multiple words */
+.icon-container {
+  background: #f3f9fa;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%; /* NOTE: width and height has no effect on inline elements (e.g. span) */
+  display: inline-flex; /*NOT block, so there is no linebreak. However, icon is not in the center, so need to use inline-flex */
+  justify-content: center; /* horizontal */
+  align-items: center; /* vertical */
+}
+
+.icon-container--accent {
+  background: var(--color-accent);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 40px;
+  border: 0;
+  cursor: pointer;
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin: 1rem 0; /* adding vertical margin to separate button from other elements */
+  outline: 0; /* This is to prevent chrome from adding outline after clicking in older versions */
+  padding: 2rem 4vw;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap; /* When in limited space, the text in button doesn't wrap on to the 2nd line */
+}
+
+.btn--small {
+  font-size: 1.5rem;
+  margin: auto;
+  padding: 0.5rem 1rem;
+}
+
+.btn .icon {
+  /* In plain words: inside button, the widht of icon would be 2rem, height 2rem*/
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: #3a8ffd;
+}
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.btn--secondary:hover {
+  background: #00c8eb;
+}
+
+.btn--accent {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn--accent:hover {
+  background: #ec3000;
+}
+
+.btn--stretched {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.btn--top {
+  margin-top: 5rem;
+  display: flex;
+  justify-self: end;
+}
+
+.btn--block {
+  width: 100%;
+  display: inline-block;
+  /* Becasue anchor elemens are inline by default, so width in inline element does not work */
+}
+
+.btn--outline {
+  background: #fff;
+  color: var(--color-headings);
+  border: 2px solid var(--color-headings);
+}
+.btn--outline:hover {
+  background: var(--color-headings);
+  color: #fff;
+}
+
+.btn-plan-adjustment {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .btn {
+    font-size: 1.5rem;
+  }
+}
+
+/* Inputs */
+.input {
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  color: var(--color-headings);
+  font-size: 2rem;
+  outline: 0; /* Just in case chrome add outline border in older versions */
+  padding: 1.5rem 3.5rem;
+  text-align: left;
+}
+
+::placeholder {
+  color: #cdcbd7;
+}
+
+.input-group {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  display: flex;
+}
+
+.input-group .input {
+  border: 0;
+  flex-grow: 1;
+  padding: 1.5rem 2rem;
+  width: 0;
+}
+
+.input-group .btn {
+  margin: 4px;
+  /* absolute value is used here so that the margin is independent from viewport size or font size */
+}
+
+@media screen and (min-width: 1024px) {
+  .input {
+    font-size: 2rem;
+  }
+}
+
+/* Cards */
+.card {
+  border-radius: 7px;
+  box-shadow: 0 0 20px 10px #f3f3f3;
+  /* 0 0 for horizontal and vertical offset; 
+     20px for blurring the shadow and making it softer
+     10px for spreading the shadow. The larger this value, the bigger the shadow
+  */
+
+  overflow: hidden;
+  /* card__header is bigger than its parent that is the container which is the card element.
+     So, we have overflow. By default, overflow is visible. So, to bring back the round corners, we 
+     need to set the overflow to "hidden".
+  */
+}
+
+.card__header,
+.card__body {
+  padding: 2rem 3rem;
+}
+
+/* Defining new rule and saying, if you have an element with a class of card--primary, the header
+   and this element should have a background of color--primary. (Like all similar cases above)*/
+
+.card--primary .card__header {
+  background: var(--color-primary);
+  color: #fff; /* with text color white */
+}
+
+.card--secondary .card__header {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.card--primary .badge--primary {
+  background: #126de4;
+}
+
+.card--secondary .badge--secondary {
+  background: #02cdf1;
+}
+
+/* Plans */
+.plan {
+  transition: transform 0.2s ease-out;
+}
+
+.plan__name {
+  color: #fff;
+  margin: 0; /* Set to 0 as there is too much space above the heading due to h3 default setting */
+  font-weight: 500; /* We are using a variable font, so we can use any weight we want without incurring a 
+                        performance penalty */
+  font-size: 2.4rem;
+}
+
+.plan__prjname {
+  font-size: 6rem;
+}
+
+.plan__prjnamesmall{
+  font-size: 4.5rem;
+}
+
+.plan__billing-cycle {
+  font-size: 2.4rem;
+  font-weight: 300;
+  opacity: 0.8;
+  margin-right: 1rem;
+}
+
+.plan__description {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  display: block;
+}
+
+.plan.list_item {
+  margin-bottom: 2rem;
+}
+
+.plan--popular {
+  transform: scale(1.1);
+}
+
+.plan--popular .card__header {
+  position: relative;
+}
+
+/* If we have a plan, we want to insert something before the content of the card hearder */
+.plan--popular .card__header::before {
+  content: url(../images/popular.svg);
+  width: 40px;
+  display: inline-block; /* This is an inline element, so need to set to inline-block for width to work */
+  position: absolute; /* This means we should make the parent or the container (card__header),
+                         a relatively positioned element */
+  top: -6px;
+  right: 5%;
+}
+
+.plan:hover {
+  transform: scale(1.05);
+}
+.plan--popular:hover {
+  transform: scale(1.15);
+}
+
+@media screen and (min-width: 1024px) {
+  .plan__name {
+    font-size: 1.4rem;
+  }
+
+  .plan__price {
+    font-size: 5rem;
+  }
+
+  .plan__billing-cycle {
+    font-size: 1.6rem;
+  }
+
+  .plan__description {
+    font-size: 1.7rem;
+  }
+}
+
+/* Media */
+.media {
+  display: flex;
+}
+
+.media__title {
+  margin-top: 0;
+}
+
+.media__body {
+  margin: 0 2rem;
+}
+
+.media__image {
+  margin-top: 1rem;
+}
+
+.image-container {
+  max-width: 100%;
+  height: auto;
+  text-align: center;
+  justify-items: center;
+  cursor: pointer;
+  /* border: 2px solid red; */
+}
+
+.title-image {
+  width: 80%;
+  height: auto;
+}
+
+.responsive-image {
+  width: 400px;
+  height: auto;
+}
+
+.responsive-image-vertical {
+  width: auto;
+  height: 400px;
+}
+
+.slider-container-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-container {
+  max-width: 400px;
+  height: auto;
+  text-align: center;
+  justify-items: center;
+  cursor: pointer;
+}
+
+.slider {
+  display: flex;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.slider img {
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+
+#expanded-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  cursor: pointer;
+  overflow: auto;
+}
+
+#expanded-image img {
+  display: block;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Quotes */
+.quote {
+  font-size: 3rem;
+  font-style: italic;
+  color: var(--color-body-darker);
+  line-height: 1.3;
+}
+
+.quote__text::before {
+  content: open-quote;
+}
+
+.quote__text::after {
+  content: close-quote;
+}
+
+.quote__author {
+  font-size: 3rem;
+  font-weight: 500;
+  font-style: normal;
+  margin-bottom: 0;
+}
+
+.quote__organization {
+  color: color var(--color-headings);
+  opacity: 0.4;
+  font-size: 2rem;
+  font-style: normal;
+}
+
+/* Re-positioning quote line without affecting other element using relative position */
+.quote__line {
+  position: relative;
+  bottom: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+  .quote {
+    font-size: 2rem;
+  }
+
+  .quote__author {
+    font-size: 2.4rem;
+  }
+
+  .quote__organization {
+    font-size: 1.6rem;
+  }
+}
+
+/* Grids */
+.grid {
+  display: grid;
+}
+
+@media screen and (min-width: 768px) {
+  .grid--1x2 {
+    grid-template-columns: repeat(2, 1fr); /* or code as repeat(2, 1fr) */
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .grid--1x55n45 {
+    grid-template-columns: 55% 45%;
+    /* border: 2px solid red; */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .grid--1x3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .grid--1x4 {
+    grid-template-columns: repeat(4, 35% 20% 20% 30%);
+  }
+}
+
+/* Testimonial */
+.testimonial {
+  padding: 3rem;
+}
+
+.testimonial__image {
+  position: relative;
+}
+
+.testimonial__image > img {
+  width: 100%;
+  /* we are targeting image that is directly inside this container. 
+     So, we are using direct child selector*/
+}
+
+.testimonial__image > .icon-container {
+  position: absolute;
+  top: 3rem;
+  right: -30px;
+}
+
+@media screen and (min-width: 768px) {
+  .testimonial .quote,
+  .testimonial .quote__author {
+    /* Once again, we see the benefit of BEM convention. We could cleary see the component 
+    and the elements  */
+    font-size: 2.4rem;
+  }
+
+  .testimonial .quote {
+    margin-left: 6rem;
+  }
+}
+
+/* Callout */
+.callout {
+  padding: 4rem;
+  border-radius: 5px;
+}
+
+.callout--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.callout__heading {
+  color: #fff;
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+/* The default value for justify-items and align-items is "stretch" 
+   To solve this problem, we have to change the alignment of this button.*/
+
+.callout .btn {
+  justify-self: center; /* justify-item is applied to grid; So, instead, we need
+                           to use justify-self. This is a property applied to grid item. */
+  align-self: center;
+}
+
+.callout__content {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .callout .grid--1x2 {
+    grid-template-columns: 1fr auto;
+  }
+  .callout__content {
+    text-align: left;
+  }
+  .callout .btn {
+    justify-self: start;
+    margin: 0 2rem;
+  }
+}
+
+/* Collapsibles */
+
+/* We are not apply width to collapsible, so that it could adapt to different containers.  
+   Width is determined by the container */
+
+.collapsible__header {
+  display: flex;
+  justify-content: space-between; /* This will push the items to the edges of the container and add space between them */
+}
+
+.collapsible__heading {
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+.collapsible__chevron {
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+
+.collapsible__content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.collapsible--expanded .collapsible__chevron {
+  transform: rotate(90deg);
+}
+
+.collapsible--expanded .collapsible__content {
+  max-height: 100vh;
+  opacity: 1;
+}
+
+/* blocks */
+.block {
+  /* We are defining a variable in this particular element. It will be available for this block and all its children */
+  --padding-vertical: 2rem;
+  padding: var(--padding-vertical) 2rem;
+  /* border: 2px solid red; */
+  /* Could use border: 2px solid red; for temporary visual reference*/
+}
+
+.block__header {
+  text-align: center;
+  margin-bottom: 4rem;
+  margin-top: 8rem;
+}
+
+.block__header_description {
+  color: var(--color-body-light);
+  text-align: center;
+}
+
+.block__heading {
+  margin-top: 0;
+}
+
+.block__personal {
+  margin-top: 10rem;
+}
+
+.block__3d{
+  margin-top: 0rem;
+}
+
+.block--dark {
+  background: #000;
+  color: #7b858b;
+}
+
+.blcok--light {
+  background: var(--color-primary);
+}
+
+.block--dark .block__heading {
+  color: #fff;
+}
+
+.block--dark h1,
+.block--dark h2,
+.block--dark h3 {
+  color: #fff;
+}
+
+.block--skewed-right {
+  padding-bottom: calc(var(--padding-vertical) + 4rem);
+  /* So, I dont have to remember to adjust for skewed block */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%);
+  /* each 2 no. represent a poiny: x and y offset */
+}
+
+.block--skewed-left {
+  padding-bottom: calc(var(--padding-vertical) + 4rem);
+
+  clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 0% 100%);
+}
+
+/* Container */
+.container {
+  /* a reusable class, got nothing to do with blocks, we can use it anywhere you want apply this constrain */
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.container--top {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container--bottom {
+  margin-bottom: 6rem;
+}
+
+/* Container to contain the video container */
+.video-container-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Video Container */
+.video-container{
+  position: relative;
+  overflow: hidden;
+  width: 70%;
+  padding-top: 39.375%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) times 70% */
+  /* border: 2px red solid; */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Navigation */
+.nav {
+  background: rgb(0, 166, 255);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+  align-items: center;
+}
+
+nav.active {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0rem;
+  align-items: center;
+}
+
+.nav.transparent {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+  align-items: center;
+}
+
+.nav-fixed {
+  height: auto;
+  background: #FFF;
+  width: 100%;
+  z-index: 10;
+  position: fixed;
+  margin-top: auto;
+}
+
+.nav__list {
+  width: 100%;
+  margin: 0;
+}
+
+.nav__item {
+  padding: 0.5rem 2rem;
+  border-bottom: 1px solid #222;
+}
+
+.nav__item > a {
+  /* We are using direct child selector here to target anchor inside nav__item 
+     There is no need to assign this element an individual class like nav__link.
+     We could do that, but it's literally impossible that we are going to replace anchor
+     with another element. We should always have anchors on a navigation bar.
+  */
+  color: #000000;
+  transition: color 0.3s;
+}
+
+.nav__item > a:hover {
+  color: rgb(147, 145, 145);
+}
+
+.nav__toggler {
+  opacity: 0.5;
+  transition: box-shadow 0.15s;
+  cursor: pointer;
+}
+
+/* using double class selector: no space in between. We are selecting an element that has both
+   the nav class and collapsible--expanded*/
+.nav.collapsible--expanded .nav__toggler {
+  opacity: 1;
+  box-shadow: 0 0 0 3px #ccc; /* horizontal offset, vertical offset; shadow softer; spread; color*/
+  border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .nav__toggler {
+    display: none;
+  }
+
+  .nav__list {
+    width: auto;
+    display: flex;
+    font-size: 1.6rem;
+    max-height: 100%;
+    opacity: 1;
+  }
+
+  .nav__item {
+    border: 0;
+  }
+}
+
+/* Hero */
+.hero {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 0% 100%);
+}
+
+.hero__tagline {
+  font-size: 2rem;
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 1rem 0 1rem 1rem; /* Top and Bottom only */
+}
+
+.hero__image {
+  width: 100%;
+}
+
+.hero--shadow{
+  box-shadow: 0 0 10px 10px #aad7fa;
+}
+
+@media screen and (min-width: 768px) {
+  .hero {
+    padding-top: 0;
+  }
+
+  .hero__content {
+    text-align: left;
+    align-self: center;
+  }
+}
+
+/* Domain block */
+.block-domain .input-group {
+  box-shadow: 0 0 30px 20px #e6ebee;
+  border: 0;
+  margin: 4rem auto;
+  max-width: 670px;
+}
+
+.block-domain__prices {
+  color: var(--color-headings);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 6rem); /* 6rem gives height to each row */
+  font-size: 2rem;
+  font-weight: 600;
+  max-width: 700px;
+  justify-items: center;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  /* In plain enlgish: We are writing media query for screens wider than 768px */
+  .block-domain__prices {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 2fr));
+  }
+
+  .block-adjustment {
+    margin-bottom: 0;
+  }
+}
+
+/* Plans Block */
+.block-plans .grid {
+  gap: 8rem 4rem;
+}
+
+.block-plans .card {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Features */
+.feature {
+  gap: 4rem 2rem;
+  margin: 8rem 0;
+}
+
+.feature__heading {
+  margin: 2rem 0;
+}
+
+.feature__image {
+  width: 100%;
+}
+
+
+/* /* Responsive Full-cover background image* */
+.background-image {
+  background-image: url("../images/bgpicture.webp");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+.background-imageII {
+  background-image: url("../images/3dgame.webp");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+/* Banner */
+.banner {
+  background: yellowgreen;
+}
+
+.banner__text {
+  color: #fff;
+  flex-grow: 1;
+  line-height: 1.4;
+  padding-left: 2rem;
+}
+
+.banner__content {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.banner__positon {
+  display: flex;
+  align-items: center;
+}
+
+.banner__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  background: #f7f7f7;
+}
+
+.footer a {
+  /* For all links in the footer */
+  color: #777;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: rgb(209, 209, 209);
+}
+
+.footer__section {
+  padding: 2rem;
+  border-bottom: 1px solid #222222;
+}
+
+.footer__heading {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.footer__brand {
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.footer__copyright {
+  font-size: 2rem;
+  color: #000;
+  opacity: 0.3;
+}
+
+@media screen and (min-width: 768px) {
+  .footer__sections {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+
+  .footer .collapsible__chevron {
+    display: none;
+  }
+
+  .footer .collapsible__content {
+    opacity: 1;
+    max-height: 100%;
+  }
+
+  .footer__brand {
+    order: -1;
+    margin-top: 1rem;
+  }
+
+  .footer__brand img {
+    width: 100%;
+    max-width: 230px;
+  }
+
+  .footer__copyright {
+    font-size: 1.5rem;
+  }
+
+  .border__section {
+    border: 0;
+  }
+
+  .footer__section .list {
+    margin: 0;
+  }
+
+  .footer__heading {
+    font-size: 1.6rem;
+  }
+}
+
+.clearmargin {
+  margin-top: 0;
+}
+
+/* Overlay for content on landing page */
+.overlay {
+  position: absolute;
+  top: 15rem;
+
+  background: transparent;
+  z-index: 1;
+  width: 100%;
+}
+
+.layer {
+  z-index: 2;
+}
+
+.top-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 1200px) {
+  .top-mobile {
+    display: block;
+  }
+}
+
+.customized-plan {
+  text-align: center;
+  margin-top: 6rem;
+  transition: color 0.3s;
+}
+
+.customized-plan a:hover {
+  color: var(--color-primary);
+}
+
+/* Apply Page Styling */
+.clear-style {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.apply-style {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #00d9ff10;
+  margin-bottom: 6rem;
+}
+
+.apply-container {
+  max-width: 1050px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  margin: 0 2rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.apply-container .apply-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem 2rem;
+}
+
+.apply-content .image-box {
+  max-width: 0%;
+}
+.apply-content .image-box img {
+  width: 100%;
+}
+
+.apply-content .topic {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--color-headings);
+}
+
+.apply-content form {
+  width: 100%;
+  margin-right: 3rem;
+}
+
+.apply-content .input-box {
+  height: 50px;
+  width: 100%;
+  margin: 1.6rem 0;
+  position: relative;
+}
+
+.apply-content .input-box input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  outline: none;
+  padding-left: 1.6rem;
+  background: #00d9ff10;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.apply-content .input-box input:focus,
+.apply-content .input-box input:valid {
+  border-color: var(--color-primary);
+  background-color: #fff;
+}
+
+.apply-content .input-box label {
+  position: absolute;
+  left: 1.8rem;
+  top: 50%;
+  color: var(--color-body-darker);
+  font-size: 1.5rem;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.apply-content .input-box input:focus ~ label,
+.apply-content .input-box input:valid ~ label {
+  top: 0;
+  left: 1.2rem;
+  display: 1.4rem;
+  color: var(--color-primary);
+  background-color: #fff;
+}
+
+.apply-content .message-box {
+  min-height: 10rem;
+  position: relative;
+}
+
+.apply-content .message-box textarea {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+  outline: none;
+  resize: none;
+  background: #00d9ff10;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.apply-content .message-box textarea:focus {
+  border-color: var(--color-primary);
+  background-color: #fff;
+}
+
+.apply-content .message-box label {
+  position: absolute;
+  font-size: 1.6rem;
+  color: var(--color-body-darker);
+  left: 1.8rem;
+  top: 0.6rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.apply-content .message-box textarea:focus ~ label {
+  left: 1.2rem;
+  top: -1rem;
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  background: #fff;
+}
+
+.apply-content .input-box input[type="submit"] {
+  color: #fff;
+  background: var(--color-primary);
+  padding-left: 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.apply-content .input-box input[type="submit"]:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.space-filler {
+  height: 10rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .apply-content .image-box {
+    max-width: 55%;
+  }
+
+  .apply-content {
+    padding: 1rem 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .apply-content .image-box {
+    max-width: 40%;
+  }
+  .apply-content form {
+    width: 100%;
+    margin-left: 3rem;
+  }
+}
+
+/* Select plan drop-down list */
+.selection-container {
+  margin-top: 1rem;
+  padding: 3rem;
+}
+
+.select-box {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+}
+
+.select-box .options-container {
+  background: var(--color-primary);
+  color: #fff;
+  max-height: 0;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.4s ease-out;
+  border-radius: 8px;
+  overflow: hidden;
+
+  order: 1;
+}
+
+.selected {
+  background: var(--color-primary);
+  border-radius: 8px;
+  margin-bottom: 4px;
+  color: #f5f6fa;
+  position: relative;
+  text-align: center;
+  padding: 1rem;
+
+  order: 0;
+}
+
+.selected::after {
+  content: "";
+  background: url(../images/chevron.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 100%;
+  width: 32px;
+  right: 10px;
+  top: 5px;
+  transition: all 0.3s ease;
+}
+
+.select-box .options-container.select-active {
+  max-height: 240px;
+  opacity: 1;
+  overflow-y: scroll;
+}
+
+.select-box .options-container::-webkit-scrollbar {
+  width: 8px;
+  background: #0d141f;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .options-container::-webkit-scrollbar-thumb {
+  background: #525861;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .option,
+.select {
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+}
+
+.select-box .option:hover {
+  background: var(--color-secondary);
+}
+
+.select-box label {
+  cursor: pointer;
+}
+
+.select-box .option .radio {
+  display: none;
+}
+
+.hero--toppadding{
+  padding-top: 10rem;
+}
+
+.prj--bottom{
+  margin-bottom: 5rem;
+}
+
+.white{
+  color: #FFF;
+}
+
+.moreFun{
+  width: 10rem;
+  height: 10rem;
+}
+
+.skipText{
+  color: var(--color-body-darker)
+}
+
+.skipTop{
+  margin-top: 10rem;
+}
+
+.createTop{
+  margin-top: 5rem;
+}
